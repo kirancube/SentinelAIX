@@ -1,0 +1,48 @@
+graph LR
+    %% Deep Multiple Instance Learning Ranking Workflow
+    subgraph POS_BAG["POSITIVE BAG (Anomaly Video: B_a)"]
+        direction TB
+        V1_a["Segment V_1^a (Normal)"]
+        V2_a["Segment V_2^a (Normal)"]
+        V_anom["Segment V_k^a (CRITICAL ANOMALY)"]
+        Vm_a["Segment V_m^a (Normal)"]
+    end
+
+    subgraph NEG_BAG["NEGATIVE BAG (Normal Video: B_n)"]
+        direction TB
+        V1_n["Segment V_1^n (Normal)"]
+        V2_n["Segment V_2^n (Normal)"]
+        Vj_n["Segment V_j^n (Normal)"]
+        Vm_n["Segment V_m^n (Normal)"]
+    end
+
+    subgraph MIL_CORE["DEEP MIL RANKING ENGINE"]
+        direction TB
+        EVAL_A["Score All Instances: f(V_i^a)"]
+        EVAL_N["Score All Instances: f(V_j^n)"]
+        MAX_A["Max Operator: MAX(f(V_i^a))"]
+        MAX_N["Max Operator: MAX(f(V_j^n))"]
+    end
+
+    subgraph OPTIMIZATION["OPTIMIZATION & CONSTRAINTS"]
+        direction TB
+        OBJECTIVE["Ranking Margin: MAX(f(V_i^a)) > MAX(f(V_j^n))"]
+        LOSS_HINGE["L_hinge = max(0, 1 - MAX(f_a) + MAX(f_n))"]
+        LOSS_SMOOTH["L_smooth = λ1·Σ (f_i - f_{i+1})² (Law 2: Time is Continuous)"]
+        LOSS_SPARSE["L_sparse = λ2·Σ f_i (Law 1: Anomalies are Brief)"]
+        ADAGRAD["Adagrad Optimizer (lr = 0.001)"]
+    end
+
+    POS_BAG --> EVAL_A --> MAX_A
+    NEG_BAG --> EVAL_N --> MAX_N
+
+    MAX_A --> OBJECTIVE
+    MAX_N --> OBJECTIVE
+
+    OBJECTIVE --> LOSS_HINGE
+    EVAL_A --> LOSS_SMOOTH
+    EVAL_A --> LOSS_SPARSE
+
+    LOSS_HINGE --> ADAGRAD
+    LOSS_SMOOTH --> ADAGRAD
+    LOSS_SPARSE --> ADAGRAD

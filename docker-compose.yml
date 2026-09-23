@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Central Cloud Command: Deep MIL Ranking Engine, Dashboard & Alert Dispatch
+  central-command:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentinel-central-command
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - SYSTEM_MODE=central_cloud_command
+      - ANOMALY_THRESHOLD=0.50
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - sentinel-mesh
+
+  # Edge Node Simulation: CCTV Lightweight Streamer & Feature Sampler
+  edge-node-01:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentinel-edge-node-01
+    restart: unless-stopped
+    command: ["python", "-m", "sentinel.edge.edge_node", "--camera-id", "CAM_01", "--hub-url", "http://central-command:8000"]
+    depends_on:
+      central-command:
+        condition: service_healthy
+    networks:
+      - sentinel-mesh
+
+networks:
+  sentinel-mesh:
+    driver: bridge
