@@ -41,6 +41,9 @@ Worldwide, millions of CCTV cameras record municipal infrastructure continuously
 ### The Legacy Failure Mode
 In legacy systems, video streams flow from camera nodes directly into cold video storage with limited throughput and high latency. Real-time human monitors face an overwhelming ratio of cameras per operator (often exceeding 50:1), resulting in severe **cognitive fatigue**, **information overload**, and **missed critical security incidents**.
 
+P R Kiran Kumar Reddy
+Kurapati SriHarsha Vardhan
+
 ```
 [LEGACY PARADIGM: PASSIVE STORAGE]
 Camera Node ──(Throughput: Limited)──> Video Storage ──(Latency: High)──> Human Bottleneck ──> Missed Incident
