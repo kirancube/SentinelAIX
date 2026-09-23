@@ -11,12 +11,12 @@ graph TD
         direction TB
         INGEST["Ingress Gateway & WebSocket Streamer"]
         C3D_SRV["Spatiotemporal C3D Acceleration Cluster"]
-        MIL_SRV["Deep MIL Ranking Inference Server (< 3.8ms)"]
+        MIL_SRV["Deep MIL Ranking Inference Server - Sub 3.8ms"]
         ALERT_HUB["Structured Threat Packaging Hub"]
-        STORE["Spatiotemporal Vector Store & Video Archive"]
+        STORE["Spatiotemporal Vector Store and Video Archive"]
     end
 
-    subgraph CONTROL_ROOM["TACTICAL OPERATIONS CENTER (HUD)"]
+    subgraph CONTROL_ROOM["TACTICAL OPERATIONS CENTER HUD"]
         OPERATOR_A["Senior Dispatch Operator"]
         OPERATOR_B["Threat Intelligence Analyst"]
         MOBILE_UNITS["Quick Reaction Patrol Units"]
@@ -27,8 +27,10 @@ graph TD
     EDGE3 -->|Encrypted Real-Time Telemetry| INGEST
     EDGE4 -->|Encrypted Real-Time Telemetry| INGEST
 
-    INGEST --> C3D_SRV --> MIL_SRV --> ALERT_HUB
+    INGEST --> C3D_SRV
+    C3D_SRV --> MIL_SRV
+    MIL_SRV --> ALERT_HUB
     MIL_SRV --> STORE
-    ALERT_HUB -->|Live Threat Alerts (WebSocket)| CONTROL_ROOM
+    ALERT_HUB -->|Live Threat Alerts via WebSocket| CONTROL_ROOM
     CONTROL_ROOM -->|Human-in-the-Loop Feedback| MIL_SRV
     ALERT_HUB -.->|Automated Tactical Briefing| MOBILE_UNITS

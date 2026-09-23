@@ -26,15 +26,20 @@ graph LR
 
     subgraph OPTIMIZATION["OPTIMIZATION & CONSTRAINTS"]
         direction TB
-        OBJECTIVE["Ranking Margin: MAX(f(V_i^a)) > MAX(f(V_j^n))"]
-        LOSS_HINGE["L_hinge = max(0, 1 - MAX(f_a) + MAX(f_n))"]
-        LOSS_SMOOTH["L_smooth = λ1·Σ (f_i - f_{i+1})² (Law 2: Time is Continuous)"]
-        LOSS_SPARSE["L_sparse = λ2·Σ f_i (Law 1: Anomalies are Brief)"]
-        ADAGRAD["Adagrad Optimizer (lr = 0.001)"]
+        OBJECTIVE["Ranking Margin: Max Pos Score greater than Max Neg Score"]
+        LOSS_HINGE["Hinge Loss: max(0, 1 - max_pos + max_neg)"]
+        LOSS_SMOOTH["Smoothness Loss: lambda_1 * sum diff squared - Law 2: Time is Continuous"]
+        LOSS_SPARSE["Sparsity Loss: lambda_2 * sum scores - Law 1: Anomalies are Brief"]
+        ADAGRAD["Adagrad Optimizer - Learning Rate 0.001"]
     end
 
-    POS_BAG --> EVAL_A --> MAX_A
-    NEG_BAG --> EVAL_N --> MAX_N
+    V1_a --> EVAL_A
+    V_anom --> EVAL_A
+    V1_n --> EVAL_N
+    Vj_n --> EVAL_N
+
+    EVAL_A --> MAX_A
+    EVAL_N --> MAX_N
 
     MAX_A --> OBJECTIVE
     MAX_N --> OBJECTIVE

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SentinelAI X — Autonomous Public Safety Intelligence Platform</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="tactical-hud">
+  <!-- Top Intelligence Classification Banner -->
+  <header class="hud-header">
+    <div class="header-left">
+      <div class="dossier-id">DOC_ID: SAI-X_BRIEFING_V1.2 // REPORT: 2024-SAX-003C</div>
+      <h1 class="platform-title">SENTINELAI X <span class="subtitle">TACTICAL OPERATIONS COMMAND</span></h1>
+    </div>
+    <div class="header-center">
+      <div class="threat-status-badge" id="threatBadge">
+        <span class="pulse-dot"></span>
+        <span class="threat-label">SYSTEM_ONLINE // NOMINAL</span>
+      </div>
+      <div class="latency-readout">LATENCY: <span id="latencyVal">3.8 ms</span> &lt; 5MS BUDGET</div>
+    </div>
+    <div class="header-right">
+      <div class="classification">CLASSIFICATION: UNCLASSIFIED // DEFENSE INTEL</div>
+      <div class="hud-clock" id="hudClock">2026-09-23 23:14:00 UTC</div>
+    </div>
+  </header>
+
+  <!-- Main Grid Layout -->
+  <main class="hud-layout">
+    <!-- Left Column: Camera Grid & CCTV Streams -->
+    <section class="hud-panel camera-panel">
+      <div class="panel-header">
+        <h2><span class="icon">&#x2316;</span> CCTV GRID INGESTION (4 NODES ACTIVE)</h2>
+        <span class="tag">REAL-TIME RTSP MESH</span>
+      </div>
+      <div class="camera-grid">
+        <!-- CAM 01 -->
+        <div class="cam-box active" id="camBox1">
+          <div class="cam-overlay">
+            <span class="cam-title">CAM_01 // NORTH GATE</span>
+            <span class="cam-spec">4K // FOV: 90&deg; // 30 FPS</span>
+          </div>
+          <div class="cam-viewport" id="viewport1">
+            <div class="reticle"></div>
+            <div class="cam-noise"></div>
+            <div class="target-box" id="targetBox1">PERSON: 0.94</div>
+          </div>
+          <div class="cam-footer">MODULE_1: YOLO_V8_PLANNED</div>
+        </div>
+
+        <!-- CAM 02 -->
+        <div class="cam-box active" id="camBox2">
+          <div class="cam-overlay">
+            <span class="cam-title">CAM_02 // SECTOR PERIMETER</span>
+            <span class="cam-spec">PTZ_ACTIVE // 60 FPS</span>
+          </div>
+          <div class="cam-viewport" id="viewport2">
+            <div class="reticle"></div>
+            <div class="cam-noise"></div>
+          </div>
+          <div class="cam-footer">MODULE_2: C3D_SPATIOTEMPORAL</div>
+        </div>
+
+        <!-- CAM 03 -->
+        <div class="cam-box active" id="camBox3">
+          <div class="cam-overlay">
+            <span class="cam-title">CAM_03 // TRANSIT CHECKPOINT</span>
+            <span class="cam-spec">ANPR_READY // 30 FPS</span>
+          </div>
+          <div class="cam-viewport" id="viewport3">
+            <div class="reticle"></div>
+            <div class="cam-noise"></div>
+          </div>
+          <div class="cam-footer">MODULE_3: MIL_RANKING_ENGINE</div>
+        </div>
+
+        <!-- CAM 04 -->
+        <div class="cam-box active" id="camBox4">
+          <div class="cam-overlay">
+            <span class="cam-title">CAM_04 // CONCOURSE EAST</span>
+            <span class="cam-spec">FOV: 120&deg; // 30 FPS</span>
+          </div>
+          <div class="cam-viewport" id="viewport4">
+            <div class="reticle"></div>
+            <div class="cam-noise"></div>
+          </div>
+          <div class="cam-footer">MODULE_2: C3D_SPATIOTEMPORAL</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Center Column: Live Diagnostic Chart & MIL Formulation -->
+    <section class="hud-panel analytics-panel">
+      <div class="panel-header">
+        <h2><span class="icon">&#x1F4C8;</span> SYSTEM DIAGNOSTICS: LIVE ANOMALY SCORING</h2>
+        <span class="tag alert-tag" id="scoreIndicator">SCORE: 0.02 [NOMINAL]</span>
+      </div>
+
+      <!-- Graph Canvas Container -->
+      <div class="chart-container">
+        <canvas id="anomalyCanvas" width="700" height="260"></canvas>
+        <div class="chart-legend">
+          <span class="legend-item"><span class="color-box line-color"></span> Anomaly Score f(V_i)</span>
+          <span class="legend-item"><span class="color-box threshold-color"></span> Threat Threshold (0.50)</span>
+          <span class="legend-item"><span class="color-box window-color"></span> Active Anomaly Window</span>
+        </div>
+      </div>
+
+      <!-- Tactical Telemetry & Physics Constraints -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">ROC-AUC BENCHMARK</div>
+          <div class="kpi-val highlight">75.41%</div>
+          <div class="kpi-sub">UCF-Crime 128h Wild CCTV</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">FALSE ALARM RATE</div>
+          <div class="kpi-val green">1.9%</div>
+          <div class="kpi-sub">Legacy Fails at 27.2% FAR</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">PHYSICS CONSTRAINTS</div>
+          <div class="kpi-val">&lambda;1, &lambda;2 = 8&times;10&oline;&sup5;</div>
+          <div class="kpi-sub">Smoothness + Sparsity</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">INFERENCE SPEED</div>
+          <div class="kpi-val cyan">&lt; 3.8 ms</div>
+          <div class="kpi-sub">C3D + MIL Dense Pass</div>
+        </div>
+      </div>
+
+      <!-- Math Objective Readout -->
+      <div class="formula-box">
+        <div class="formula-title">DEEP MIL RANKING OBJECTIVE:</div>
+        <code>MAX(i &isin; Ba) f(V_i) &gt; MAX(j &isin; Bn) f(V_j) &nbsp;|&nbsp; L = max(0, 1 - max(f_a) + max(f_n)) + &lambda;1&middot;L_smooth + &lambda;2&middot;L_sparse</code>
+      </div>
+    </section>
+
+    <!-- Right Column: AI Co-Pilot & Threat Alert Operations -->
+    <section class="hud-panel copilot-panel">
+      <div class="panel-header">
+        <h2><span class="icon">&#x1F6E1;</span> AI CO-PILOT: THREAT INTELLIGENCE</h2>
+        <span class="tag">HUMAN-IN-THE-LOOP</span>
+      </div>
+
+      <!-- Active Alerts Feed -->
+      <div class="alerts-feed-wrapper">
+        <div class="feed-title">PRIORITIZED THREAT ALERTS</div>
+        <div class="alerts-list" id="alertsList">
+          <!-- Dynamic Alerts Rendered Here -->
+        </div>
+      </div>
+
+      <!-- Operator Feedback Control Panel -->
+      <div class="feedback-panel">
+        <div class="feedback-title">OPERATOR DECISION MATRIX</div>
+        <p class="feedback-sub">Investigated pixels packaged for human review. Select validation:</p>
+        <div class="button-group">
+          <button class="btn btn-danger" onclick="operatorFeedback('CONFIRMED_THREAT')">&#x2714; DISPATCH LAW ENFORCEMENT</button>
+          <button class="btn btn-warning" onclick="operatorFeedback('FALSE_POSITIVE_ENVIRONMENTAL')">&#x1F327; DISMISS (LOW LIGHT / WEATHER)</button>
+          <button class="btn btn-info" onclick="operatorFeedback('FALSE_POSITIVE_BEHAVIORAL')">&#x1F465; DISMISS (CROWD BEHAVIOR)</button>
+        </div>
+        <div class="feedback-status" id="feedbackFeedback">Operator standing by...</div>
+      </div>
+
+      <!-- Tactical Roadmap Checklist -->
+      <div class="tactical-roadmap">
+        <div class="roadmap-title">DEPLOYMENT ARCHITECTURE // STATUS: 60% COMPLETE</div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 60%;"></div>
+        </div>
+        <ul class="checklist">
+          <li class="checked">&#x2714; Deep MIL Anomaly Engine [ACTIVE]</li>
+          <li class="checked">&#x2714; Spatiotemporal 3D Features (C3D) [ACTIVE]</li>
+          <li class="checked">&#x2714; False Alarm Suppression (1.9% FAR) [ACTIVE]</li>
+          <li class="planned">&#x25CB; YOLOv8 Multi-Object Tracking Integration [PLANNED]</li>
+          <li class="planned">&#x25CB; LLM-driven Automated Incident Reports [PLANNED]</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hud-footer">
+    <div>SENTINELAI DEFENSE INTELLIGENCE LABS &copy; 2024-2026 // AI TRANSPARENCY PROTOCOL ACTIVE</div>
+    <div>FROM PASSIVE CCTV &rarr; ACTIVE INTELLIGENCE</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
