@@ -577,11 +577,26 @@ SentinelAIX/
 ├── docker-compose.yml             # Hub-and-Spoke local orchestration
 ├── render.yaml                    # Render Cloud Blueprint definition
 ├── vercel.json                    # Root Vercel Edge configuration
-├── frontend/                      # Decoupled Vercel Frontend SPA
-│   ├── index.html                 # Tactical HUD interface
-│   ├── style.css                  # Cyber-defense HUD styling
-│   ├── app.js                     # Live Canvas chart & Render auto-connector
-│   └── vercel.json                # Frontend-specific Vercel router
+├── frontend/                      # Decoupled Vercel Frontend SPA (React + Vite)
+│   ├── package.json               # Three.js, React Bits Dither, R3F dependencies
+│   ├── vite.config.js             # Vite build configuration
+│   ├── vercel.json                # Frontend-specific Vercel router (Vite preset)
+│   ├── index.html                 # Tactical HUD entry template
+│   └── src/                       # React Bits HUD source tree
+│       ├── App.jsx                # Tactical HUD container with Dither background
+│       ├── App.css                # Cyber-defense HUD styling & glassmorphism
+│       ├── main.jsx               # React DOM entry
+│       ├── components/
+│       │   ├── Dither/            # React Bits Dither Component (Three.js shaders)
+│       │   │   ├── Dither.jsx
+│       │   │   └── Dither.css
+│       │   ├── ModelVerificationConsole.jsx # Zero-slop live neural verifier
+│       │   ├── TacticalCameraGrid.jsx       # 4-node CCTV sensor mesh
+│       │   ├── TelemetryChart.jsx           # Real-time continuous trajectory monitor
+│       │   ├── DitherControls.jsx           # Live shader configuration HUD
+│       │   └── IncidentDossierModal.jsx     # HITL operator decision matrix
+│       └── utils/
+│           └── modelEngine.js     # Client-side neural verification engine
 ├── config/
 │   ├── config.yaml                # Hyperparameters (λ1=8e-5, λ2=8e-5, lr=0.001)
 │   └── camera_config.json         # Camera network configuration (CAM_01 to CAM_04)
@@ -659,9 +674,15 @@ pip install -r requirements.txt
 
 ### 2. Launch Local Tactical Operations Center HUD
 ```bash
+# Launch Central Cloud Command API + React Bits Dither HUD:
 python scripts/run_dashboard.py --host 127.0.0.1 --port 8000
+
+# (Optional) Launch Frontend in Vite live hot-reload development mode:
+cd frontend
+npm install --legacy-peer-deps
+npm run dev
 ```
-Open **`http://localhost:8000`** in your browser to view the real-time Tactical Defense HUD!
+Open **`http://localhost:8000`** (or **`http://localhost:3000`**) in your browser to view the real-time Tactical Defense HUD!
 
 ### 3. Run Global Multi-Dataset World Model Leaderboard Benchmark
 ```bash

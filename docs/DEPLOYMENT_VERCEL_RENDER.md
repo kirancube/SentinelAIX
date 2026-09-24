@@ -69,11 +69,13 @@ The frontend is completely decoupled in [`frontend/`](../frontend/) and at repos
 3. Select and import the `SentinelAIX` repository.
 4. In **Project Settings**:
    - **Root Directory:** Edit and select `frontend` (or leave as `./` with root `vercel.json`).
-   - **Framework Preset:** `Other`
+   - **Framework Preset:** `Vite` (automatically detected from `frontend/package.json`)
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
 5. Under **Environment Variables** (Optional if using default URL):
-   - `BACKEND_API_URL`: `https://sentinelaix-api.onrender.com`
+   - `VITE_BACKEND_URL`: `https://sentinelaix-api.onrender.com`
 6. Click **Deploy**.
-7. Vercel will instantly provision a global CDN URL (e.g. `https://sentinelaix.vercel.app`).
+7. Vercel will instantly provision a global CDN URL (e.g. `https://sentinelaix.vercel.app`) rendering the React Bits `<Dither />` dynamic shader HUD and Model Verification Lab.
 
 ### Option B: Via Vercel CLI
 ```bash
