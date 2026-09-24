@@ -127,7 +127,7 @@ export default function ModelVerificationConsole({ backendUrl, onTriggerIncident
           <Zap size={16} className="text-amber" />
           <div className="btn-text">
             <strong>3. Physical Momentum Rupture</strong>
-            <span>World Model Surprise Divergence $\mathcal&#123;E&#125;_{{world}}$</span>
+            <span>World Model Surprise Divergence (E_world)</span>
           </div>
         </button>
       </div>
@@ -151,7 +151,7 @@ export default function ModelVerificationConsole({ backendUrl, onTriggerIncident
             </div>
 
             <div className="metric-card">
-              <span className="metric-label">WORLD SURPRISE ($\mathcal&#123;E&#125;$)</span>
+              <span className="metric-label">WORLD SURPRISE (E_world)</span>
               <span className={`metric-val ${testResult.world.normalizedSurprise > 0.5 ? 'text-amber' : 'text-cyan'}`}>
                 {testResult.world.normalizedSurprise.toFixed(4)}
               </span>

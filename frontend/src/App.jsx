@@ -5,6 +5,7 @@ import TacticalCameraGrid from './components/TacticalCameraGrid';
 import TelemetryChart from './components/TelemetryChart';
 import DitherControls, { DITHER_PALETTES } from './components/DitherControls';
 import IncidentDossierModal from './components/IncidentDossierModal';
+import ErrorBoundary from './components/ErrorBoundary';
 import { Shield, Radio, ShieldAlert, Cpu, Activity, Clock, Terminal } from 'lucide-react';
 import './App.css';
 
@@ -96,18 +97,20 @@ export default function App() {
     <div className="sentinel-app">
       {/* 1. React Bits Dither Dynamic Visualizer Background */}
       <div className="dither-background-layer">
-        <Dither
-          waveSpeed={ditherConfig.waveSpeed}
-          waveFrequency={ditherConfig.waveFrequency}
-          waveAmplitude={ditherConfig.waveAmplitude}
-          waveColor={ditherConfig.waveColor}
-          backgroundColor={ditherConfig.backgroundColor}
-          colorNum={ditherConfig.colorNum}
-          pixelSize={ditherConfig.pixelSize}
-          disableAnimation={ditherConfig.disableAnimation}
-          enableMouseInteraction={ditherConfig.enableMouseInteraction}
-          mouseRadius={ditherConfig.mouseRadius}
-        />
+        <ErrorBoundary>
+          <Dither
+            waveSpeed={ditherConfig.waveSpeed}
+            waveFrequency={ditherConfig.waveFrequency}
+            waveAmplitude={ditherConfig.waveAmplitude}
+            waveColor={ditherConfig.waveColor}
+            backgroundColor={ditherConfig.backgroundColor}
+            colorNum={ditherConfig.colorNum}
+            pixelSize={ditherConfig.pixelSize}
+            disableAnimation={ditherConfig.disableAnimation}
+            enableMouseInteraction={ditherConfig.enableMouseInteraction}
+            mouseRadius={ditherConfig.mouseRadius}
+          />
+        </ErrorBoundary>
       </div>
 
       {/* 2. Tactical HUD Glassmorphism Foreground */}

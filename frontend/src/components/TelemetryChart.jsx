@@ -122,10 +122,10 @@ export default function TelemetryChart({ currentScore, worldSurprise, isSimulati
         </div>
         <div className="legend">
           <span className="legend-item">
-            <span className="dot dot-score"></span> $f(V_i)$ MIL Score
+            <span className="dot dot-score"></span> f(Vi) MIL Score
           </span>
           <span className="legend-item">
-            <span className="dot dot-surprise"></span> $\mathcal&#123;E&#125;$ World Surprise
+            <span className="dot dot-surprise"></span> E_world Surprise Metric
           </span>
         </div>
       </div>
