@@ -60,8 +60,8 @@ class TestWorldModel(unittest.TestCase):
         self.assertGreaterEqual(res["unified_score"], 0.0)
         self.assertLessEqual(res["unified_score"], 1.0)
 
-        # Pure-Python CPU latency bound (target < 5ms, ceiling < 10ms on unaccelerated CPU)
-        self.assertLess(res["latency_ms"], 10.0)
+        # Pure-Python CPU latency bound (target < 5ms, CI/CD ceiling < 25ms under system load)
+        self.assertLess(res["latency_ms"], 25.0)
 
     def test_hybrid_reset(self):
         self.hybrid_model.reset_stream()

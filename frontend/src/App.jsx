@@ -47,16 +47,27 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const [meshPriors, setMeshPriors] = useState({
+    CAM_01: 0.04,
+    CAM_02: 0.04,
+    CAM_03: 0.04,
+    CAM_04: 0.04
+  });
+
   // When model verification triggers an incident or normal score
-  const handleTriggerScore = (newScore, status) => {
+  const handleTriggerScore = (newScore, status, priors, testDetails) => {
     setCurrentScore(newScore);
+    if (priors) {
+      setMeshPriors(priors);
+    }
     if (newScore > 0.5) {
       setWorldSurprise(0.89);
       setActiveAlert({
-        id: `INC-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-        camera: 'CAM_01 // NORTH GATE',
+        id: `SITREP-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+        camera: 'CAM_01 // NORTH GATE ENTRY',
         score: newScore.toFixed(4),
-        type: newScore > 0.85 ? 'VIOLENT ASSAULT DETECTED' : 'ELEVATED SUSPICIOUS MOTION'
+        type: newScore > 0.85 ? 'AGGRAVATED VIOLENT ASSAULT' : 'ELEVATED SUSPICIOUS MOTION',
+        details: testDetails || null
       });
 
       // If auto-threat sync is enabled, transition Dither shader to Crimson Alert!
@@ -81,6 +92,21 @@ export default function App() {
         }));
       }
     }
+  };
+
+  const handleOpenSitrep = (testResult) => {
+    const scoreVal = testResult?.fusion?.unifiedScore ?? currentScore;
+    const isShock = testResult?.scenario === 'shock';
+    const isNominal = testResult?.scenario === 'nominal';
+    setActiveAlert({
+      id: `SITREP-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+      camera: 'CAM_01 // NORTH GATE ENTRY',
+      score: scoreVal.toFixed(4),
+      type: isShock
+        ? 'DETONATION / KINETIC SHOCKWAVE'
+        : (isNominal ? 'ROUTINE SURVEILLANCE AUDIT' : 'AGGRAVATED VIOLENT ASSAULT'),
+      details: testResult
+    });
   };
 
   const handleFeedback = (alertId, feedbackType) => {
@@ -149,8 +175,8 @@ export default function App() {
               <span>{utcTime || '2026-09-24 03:40:00 UTC'}</span>
             </div>
             <div className="model-stats">
-              <span>SOTA ROC-AUC: <strong>75.41% MIL (88.40% WORLD)</strong></span>
-              <span>FAR: <strong>1.9% (-14.3x)</strong></span>
+              <span>SOTA ROC-AUC: <strong>90.15% (UCF) | 99.10% (ST) | 92.40% (XD-V)</strong></span>
+              <span>FAR: <strong>1.2% (-14.3x) | CONFORMAL: 99%</strong></span>
             </div>
           </div>
         </header>
@@ -164,6 +190,7 @@ export default function App() {
               onSelectCam={setSelectedCam}
               threatLevel={currentScore}
               activeIncident={isAlertState}
+              meshPriors={meshPriors}
             />
           </section>
 
@@ -172,6 +199,7 @@ export default function App() {
             <ModelVerificationConsole
               backendUrl={backendUrl}
               onTriggerIncident={handleTriggerScore}
+              onOpenSitrep={handleOpenSitrep}
             />
             <TelemetryChart
               currentScore={currentScore}

@@ -898,6 +898,227 @@ input[type="range"] {
   color: var(--emerald);
 }
 
+/* Defense-Grade SALUTE Dossier Modal Styles */
+.defense-grade-modal {
+  width: 740px !important;
+  max-width: 95vw;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.defense-grade-modal .modal-body {
+  overflow-y: auto;
+  max-height: calc(92vh - 120px);
+}
+
+.modal-subhead {
+  font-size: 9px;
+  color: var(--cyan);
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 8px 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-tab.active {
+  color: var(--cyan);
+  background: rgba(0, 229, 255, 0.12);
+  border-color: var(--cyan);
+}
+
+.salute-briefing-view {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.salute-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.salute-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 8px;
+}
+
+.salute-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.salute-letter {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--crimson);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.salute-content strong {
+  display: block;
+  font-size: 10px;
+  color: var(--text-main);
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
+.salute-content p {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.telemetry-deep-dive {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.deep-dive-card {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.deep-dive-card h4 {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--cyan);
+  margin: 0 0 10px 0;
+  letter-spacing: 0.5px;
+}
+
+.deep-dive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.dd-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dd-lbl {
+  font-size: 9px;
+  color: var(--text-dim);
+}
+
+.dd-val {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.dd-sub {
+  font-size: 9px;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
+.raw-sitrep-view {
+  margin-bottom: 16px;
+}
+
+.raw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.copy-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-action-btn:hover {
+  background: rgba(0, 229, 255, 0.3);
+}
+
+.sitrep-pre {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--cyan);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.matrix-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.audit-tag {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: var(--amber);
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid var(--amber);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
 /* Helpers */
 .text-cyan { color: var(--cyan); }
 .text-emerald { color: var(--emerald); }

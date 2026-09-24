@@ -6,6 +6,9 @@ system:
   device_mode: "hybrid" # edge | cloud | hybrid
 
 model:
+  visual_encoder: "c3d" # c3d | i3d | resnet50
+  temporal_model: "transformer" # c3d_mil | tcn | bilstm | transformer
+  
   feature_extractor:
     name: "C3D"
     input_channels: 3

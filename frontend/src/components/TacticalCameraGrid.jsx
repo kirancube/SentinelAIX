@@ -1,5 +1,5 @@
 import React from 'react';
-import { Video, ShieldAlert, Target, Eye } from 'lucide-react';
+import { Video, ShieldAlert, Target, Eye, Network } from 'lucide-react';
 
 const CAMERAS = [
   {
@@ -36,7 +36,7 @@ const CAMERAS = [
   }
 ];
 
-export default function TacticalCameraGrid({ selectedCam, onSelectCam, threatLevel, activeIncident }) {
+export default function TacticalCameraGrid({ selectedCam, onSelectCam, threatLevel, activeIncident, meshPriors = {} }) {
   return (
     <div className="camera-grid-panel">
       <div className="panel-header">
@@ -44,13 +44,18 @@ export default function TacticalCameraGrid({ selectedCam, onSelectCam, threatLev
           <Video size={18} className="icon-cyan" />
           <h3>CCTV SENSOR MESH (4 NODES ACTIVE)</h3>
         </div>
-        <span className="mesh-tag">ENCRYPTED RTSP INGRESS</span>
+        <span className="mesh-tag">
+          <Network size={12} style={{ display: 'inline', marginRight: 4 }} />
+          TOPOLOGICAL GRAPH ACTIVE
+        </span>
       </div>
 
       <div className="cameras-container">
         {CAMERAS.map((cam) => {
           const isSelected = selectedCam === cam.id;
           const isAlerted = (activeIncident && isSelected) || (activeIncident && cam.id === 'CAM_01');
+          const prior = meshPriors[cam.id] || 0.04;
+          const isPriorElevated = prior > 0.15;
 
           return (
             <div
@@ -60,7 +65,9 @@ export default function TacticalCameraGrid({ selectedCam, onSelectCam, threatLev
             >
               <div className="cam-topbar">
                 <span className="cam-id">{cam.id} // {cam.name}</span>
-                <span className="cam-badge">{cam.badge}</span>
+                <span className={`cam-badge ${isPriorElevated ? 'text-amber' : ''}`}>
+                  {isPriorElevated ? `PRIOR: ${(prior * 100).toFixed(0)}%` : cam.badge}
+                </span>
               </div>
 
               <div className="cam-viewport">
