@@ -53,14 +53,22 @@ SentinelAI X is partitioned into two distinct functional zones:
    - Utilizes $3 \times 3 \times 3$ spatiotemporal convolutional kernels to capture appearance and motion dynamics simultaneously.
    - Outputs a 4096-dimensional dense descriptor from the FC7 layer for every 16-frame clip.
 
-3. **Deep Multiple Instance Learning (Deep MIL) Ranking Model:**
+3. **Stream 1: Deep Multiple Instance Learning (Deep MIL) Ranking Model:**
    - Architecture: $\text{Linear}(4096, 512) \to \text{ReLU} \to \text{Dropout}(0.60) \to \text{Linear}(512, 32) \to \text{ReLU} \to \text{Linear}(32, 1) \to \text{Sigmoid}$.
    - Regression mapping: $0.0 = \text{Nominal Surveillance Baseline}, 1.0 = \text{Critical Anomaly Spike}$.
    - Optimization: Adagrad with base learning rate $\eta = 0.001$.
+   - **Law 1 (Temporal Sparsity $\lambda_2 = 8 \times 10^{-5}$):** Penalizes continuous high scores.
+   - **Law 2 (Temporal Smoothness $\lambda_1 = 8 \times 10^{-5}$):** Enforces physical continuity.
 
-4. **Algorithmic Physics Constraints:**
-   - **Law 1: Anomalies are Brief (Temporal Sparsity $\lambda_2 = 8 \times 10^{-5}$):** Penalizes long-duration high-anomaly activations.
-   - **Law 2: Time is Continuous (Temporal Smoothness $\lambda_1 = 8 \times 10^{-5}$):** Penalizes erratic frame-to-frame score oscillations.
+4. **Stream 2: Spatiotemporal Latent World Model (SLWM):**
+   - Inspired by Predictive Coding and Joint-Embedding Predictive Architectures (Video-JEPA).
+   - Projects 4096-D vectors into a compact 256-D physical state manifold $z_t$.
+   - Autoregressively forecasts expected inertial momentum $\hat{z}_{t+1}$.
+   - Computes physical prediction divergence (Free Energy / Surprise): $\mathcal{E}_{world} = \|z_{t+1} - \hat{z}_{t+1}\|_2^2$.
+
+5. **Gated Synergistic Fusion Gate (GSFG):**
+   - Fuses discriminative ranking score $s_{disc}$ with generative world surprise $\mathcal{E}_{world}$.
+   - Achieves mutual cross-verification: suppresses optical noise while instantly catching unexpected physical causality ruptures.
 
 ### Zone 2: Planned Edge Modules
 1. **Object Perception (YOLOv8 + ByteTrack):**
